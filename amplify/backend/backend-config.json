@@ -1,0 +1,50 @@
+{
+  "api": {
+    "todoApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "myapp8c0c80d6"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "myapp8c0c80d6": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_myapp8c0c80d6_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "myapp8c0c80d6"
+        }
+      ]
+    },
+    "AMPLIFY_function_myapp8c0c80d6_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "myapp8c0c80d6"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "todoTable": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    }
+  }
+}

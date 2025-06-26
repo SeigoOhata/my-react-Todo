@@ -1,0 +1,10 @@
+{
+  "resourceName": "todoTable",
+  "tableName": "taskList",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
