@@ -8,24 +8,29 @@ function App() {
   const [completed, setCompleted] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
   const [editingText, setEditingText] = useState('');
+  const [isInitialized, setIsInitialized] = useState(false); // 初期化フラグ
 
   // ──────────────────────────────────────────
-  // LocalStorage: 初回読み込み
+  // LocalStorage: 初回読み込み（nullチェックで安全に）
   useEffect(() => {
-    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
-    const savedCompleted = JSON.parse(localStorage.getItem('completed')) || [];
-    setTasks(savedTasks);
-    setComments(savedComments);
-    setCompleted(savedCompleted);
+    const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+    const savedComments = JSON.parse(localStorage.getItem('comments'));
+    const savedCompleted = JSON.parse(localStorage.getItem('completed'));
+
+    if (savedTasks) setTasks(savedTasks);
+    if (savedComments) setComments(savedComments);
+    if (savedCompleted) setCompleted(savedCompleted);
+
+    setIsInitialized(true);
   }, []);
 
-  // LocalStorage: 変更があったら保存
+  // LocalStorage: 初期化完了後のみ保存
   useEffect(() => {
+    if (!isInitialized) return;
     localStorage.setItem('tasks', JSON.stringify(tasks));
     localStorage.setItem('comments', JSON.stringify(comments));
     localStorage.setItem('completed', JSON.stringify(completed));
-  }, [tasks, comments, completed]);
+  }, [tasks, comments, completed, isInitialized]);
 
   // ──────────────────────────────────────────
   // ハンドラ
